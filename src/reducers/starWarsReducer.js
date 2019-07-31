@@ -2,13 +2,13 @@
 import {
   FETCH_CHARACTERS_START,
   FETCH_CHARACTERS_SUCCESS,
-  FETCH_CHARACTERS_FAIL
+  FETCH_CHARACTERS_FAILURE
 } from '../actions';
 
 const initialState = {
   characters: [],
+  isFetching: false,
   error: null,
-  isFetching: false
   // Array characters, Boolean fetching, null error.
 };
 export const charsReducer = (state = initialState, action) => {
@@ -19,17 +19,18 @@ export const charsReducer = (state = initialState, action) => {
     case FETCH_CHARACTERS_START:
       return {
         ...state,
+        characters: [],
         isFetching: true,
         error: ""
       };
       case FETCH_CHARACTERS_SUCCESS:
       return {
         ...state,
-        starWars: action.payload,
-        isFetching: true,
+        characters: action.payload,
+        isFetching: false,
         error: ""
       };
-      case FETCH_CHARACTERS_FAIL:
+      case FETCH_CHARACTERS_FAILURE:
       return {
         ...state,
         error: action.payload
